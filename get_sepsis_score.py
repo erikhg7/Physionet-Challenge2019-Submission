@@ -31,10 +31,13 @@ def get_sepsis_score(current_data, model):
     #PCA requires a 2D array. This bit ensures that if it is the first hour, then the patient will have 2D
     if test_patient.size == 40:
         test_patient = np.vstack((test_patient, test_patient))
+        QSOFA = np.vstack((QSOFA, QSOFA))
         pca_test = pca.transform(test_patient)
+        pca_test = np.hstack((pca_test, QSOFA))
     else:
         pca_test = pca.transform(test_patient)
-        
+        pca_test = np.hstack((pca_test, QSOFA))
+    
     output=model1.predict(pca_test[-2:-1,:])
     
     if output[-1,1] >= .1:
