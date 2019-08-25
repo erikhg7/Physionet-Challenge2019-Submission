@@ -26,7 +26,7 @@ def get_sepsis_score(current_data, model):
     model1 = model[0]
     pca = model[1]
    
-    test_patient = functions.hour_by_hour(current_data)
+    test_patient, QSOFA = functions.hour_by_hour(current_data)
     
     #PCA requires a 2D array. This bit ensures that if it is the first hour, then the patient will have 2D
     if test_patient.size == 40:
